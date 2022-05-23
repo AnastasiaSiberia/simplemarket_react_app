@@ -6,18 +6,21 @@ import Loader from "../components/UI/Loader/Loader";
 
 const ProductIdPage = () => {
     const params = useParams()
-    const [product, setProduct] = useState({})
-    const [fetchProductById, isLoading, error] = useFetching(async(id) => {
-        const response = await ProductService.getById(id)
-        setProduct(response.data)
+    const [user, setUser] = useState({})
+    const [fetchCurUser, isLoading, error] = useFetching(async() => {
+        const response = await ProductService.getCurUserInfo()
+        setUser(response.data)
+        console.log(user)
     })
 
     useEffect(() => {
-        //fetchUserById(params.id)
+        fetchCurUser()
     }, [])
+
     return (
         <div>
-            Hello user!
+            <h1> Hello, {user.username} </h1>
+            {user.user_role}
         </div>
     );
 };

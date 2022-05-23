@@ -28,7 +28,7 @@ const ProductIdPage = () => {
                 : (
                     <div>
                         <h1>{product.product_name}</h1>
-                        <h2>{product.vendor_id}</h2>
+                        <h2>{product.vendor_name}</h2>
                     </div>
                 )
             }

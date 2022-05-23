@@ -20,7 +20,29 @@ export default class ProductService {
         return await axios.get('http://localhost:8080/product_info');
     }
 
-    static async getLoginPage() {
-        return await axios.get('http://localhost:8080/login')
+    static async getCurUserInfo() {
+        return await axios.get('http://localhost:8080/cur_userinfo',
+            {
+                headers: {
+                    'Authentication': 'Bearer '// + token
+                }
+            }
+            )
+    }
+
+    static async authorize(p) {
+        try {
+            return await axios.post('http://localhost:8080/auth/login', {
+                    username: p.username,
+                    password: p.password
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                })
+        } catch(ex) {
+            return {authError: ex.message}
+        }
     }
 }

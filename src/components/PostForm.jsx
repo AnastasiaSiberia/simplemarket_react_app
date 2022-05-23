@@ -17,13 +17,17 @@ const PostForm = ({create}) => {
 
     return (
         <form>
-            <MyInput type="text" placeholder={"Titlename"}
-                     value={post.title}
-                     onChange={event => setPost({...post, title: event.target.value})}
+            <MyInput type="text" placeholder={"username"}
+                     value={post.username}
+                     onChange={event => setPost({...post, username: event.target.value})}
             />
-            <MyInput type="text" placeholder={"Descriptionname"}
-                     value={post.body}
-                     onChange={event => setPost({...post, body: event.target.value})}
+            <MyInput type="password" placeholder={"password"}
+                     value={post.password}
+                     onChange={event => setPost({...post, password: event.target.value})}
+            />
+            <MyInput type="text" placeholder={"csrf"}
+                     value={post.csrf}
+                     onChange={event => setPost({...post, csrf: event.target.value})}
             />
             <MyButton onClick={addNewPost}>add</MyButton>
         </form>

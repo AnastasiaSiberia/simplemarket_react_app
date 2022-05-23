@@ -9,13 +9,20 @@ const Navbar = () => {
     const logout = () => {
         setIsAuth(false)
         localStorage.removeItem('auth')
+        localStorage.removeItem('JWTtoken')
+    }
+
+    const login = () => {
+        //window.location.assign('http://localhost:8080/login');
+        window.location.assign('http://localhost:3000/login');
     }
     return (
         <div className='navbar'>
-            <MyButton onClick={logout}>Exit</MyButton>
+            {isAuth && <MyButton onClick={logout}>Exit</MyButton>}
+            {!isAuth && <MyButton onClick={login}>Login</MyButton>}
             <div className="navbar__link">
                 <Link to="/products">Products</Link>
-                <Link to="/profile">Profile</Link>
+                {isAuth && <Link to="/profile">Profile</Link>}
             </div>
         </div>
     );
