@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import ProductList from "../components/ProductList";
-import PostForm from "../components/PostForm";
+import ProductForm from "../components/ProductForm";
 import PostFilter from "../components/PostFilter";
 import MyModal from "../components/UI/modal/MyModal";
 import MyButton from "../components/UI/button/MyButton";
@@ -11,8 +11,10 @@ import {useFetching} from "../hooks/useFetching";
 import {getPageCount, getPagesArray} from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import {useObserver} from "../hooks/useObserver";
+import {AuthContext} from "../context/context";
 
 function Products() {
+    const {role, setRole} = useContext(AuthContext)
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
@@ -36,8 +38,10 @@ function Products() {
         setPage(page + 1)
     })
 
-    const createPost = (newPost) => {
-        setProducts([...products, newPost])
+    const addProduct = async (newProduct) => {
+        await ProductService.addProduct(newProduct)
+        //const response = await ProductService.onlyVendor('out');
+        //console.log(response.data)
         setModal(false)
     }
 
@@ -51,11 +55,12 @@ function Products() {
     }
     return (
         <div className="App">
-            <MyButton style={{marginTop:30}} onClick={() => setModal(true)}>
+            {role === 'VENDOR' && <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
                 Add product
             </MyButton>
+            }
             <MyModal visible={modal} setVisible={setModal}>
-                <PostForm create={createPost}/>
+                <ProductForm create={addProduct}/>
             </MyModal>
 
             <div>

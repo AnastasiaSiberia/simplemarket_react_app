@@ -8,7 +8,7 @@ const ProductItem = (props) => {
             <div className="post__content" style={{cursor:"pointer"}}>
                 <strong>{props.product.product_name}</strong>
                 <div>
-                    <div>vendor: {props.product.vendor_id}</div>
+                    <div>{props.product.vendor_name}</div>
                     <div>{props.product.product_nviews} views        {props.product.product_rating} rating</div>
                     </div>
             </div>

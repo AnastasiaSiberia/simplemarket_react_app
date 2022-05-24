@@ -7,6 +7,7 @@ import {AuthContext} from "./context/context";
 
 function App() {
     const [isAuth, setIsAuth] = useState(false)
+    const [role, setRole] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         if(localStorage.getItem('auth') === 'true') {
@@ -14,10 +15,17 @@ function App() {
         }
         setIsLoading(false)
     }, [])
+    useEffect(() => {
+        if(localStorage.getItem('role') != null) {
+            setRole(localStorage.getItem('role'))
+        }
+    }, [])
     return (
         <AuthContext.Provider value={{
             isAuth,
             setIsAuth,
+            role,
+            setRole,
             isLoading
         }}>
             <BrowserRouter>

@@ -21,18 +21,21 @@ export default class ProductService {
     }
 
     static async getCurUserInfo() {
-        return await axios.get('http://localhost:8080/cur_userinfo',
+        const JWTToken = localStorage.getItem('JWTToken');
+        console.log('"Bearer ' + JWTToken + '"')
+        return await axios.get('http://localhost:8080/api/v1/auth/userinfo',
             {
                 headers: {
-                    'Authentication': 'Bearer '// + token
-                }
+                    'Authorization': 'Bearer ' + JWTToken
+                },
+                withCredentials: true
             }
             )
     }
 
     static async authorize(p) {
         try {
-            return await axios.post('http://localhost:8080/auth/login', {
+            return await axios.post('http://localhost:8080/api/v1/auth/login', {
                     username: p.username,
                     password: p.password
                 }, {
@@ -43,6 +46,47 @@ export default class ProductService {
                 })
         } catch(ex) {
             return {authError: ex.message}
+        }
+    }
+
+    static async addProduct(product) {
+        const JWTToken = localStorage.getItem('JWTToken');
+        try{
+            await axios.post('http://localhost:8080/add_product', {
+                    product_name: product.productName,
+                    product_description: product.productDescription
+                },
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + JWTToken
+                    },
+                    withCredentials: true
+                }
+            )
+            return true;
+        } catch (ex) {
+            return false;
+        }
+    }
+
+    static async onlyVendor(param) {
+        const JWTToken = localStorage.getItem('JWTToken');
+        try{
+            return await axios.post('http://localhost:8080/only_vendor',
+                {
+                    product_name: 'skirt',
+                    product_description: 'some text'
+                },
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + JWTToken,
+                    },
+                    withCredentials: true
+                }
+            )
+            return true;
+        } catch (ex) {
+            return false;
         }
     }
 }

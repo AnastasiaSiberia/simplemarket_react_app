@@ -5,11 +5,11 @@ import {AuthContext} from "../../../context/context";
 
 const Navbar = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
-
     const logout = () => {
         setIsAuth(false)
         localStorage.removeItem('auth')
-        localStorage.removeItem('JWTtoken')
+        localStorage.removeItem('JWTToken')
+        localStorage.removeItem('role')
     }
 
     const login = () => {
@@ -18,8 +18,10 @@ const Navbar = () => {
     }
     return (
         <div className='navbar'>
-            {isAuth && <MyButton onClick={logout}>Exit</MyButton>}
-            {!isAuth && <MyButton onClick={login}>Login</MyButton>}
+            {isAuth
+                ? <MyButton onClick={logout}>Exit</MyButton>
+                : <MyButton onClick={login}>Login</MyButton>
+            }
             <div className="navbar__link">
                 <Link to="/products">Products</Link>
                 {isAuth && <Link to="/profile">Profile</Link>}
