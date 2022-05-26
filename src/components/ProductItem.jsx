@@ -3,12 +3,18 @@ import {useHistory} from "react-router-dom";
 import ProductService from "../API/ProductService";
 import classes from "../styles/img.module.css"
 import MyButton from "./UI/button/MyButton";
+import {useFetching} from "../hooks/useFetching";
 
 const ProductItem = (props) => {
     const router = useHistory()
     const [imageURL, setImageURL] = useState({})
-    useEffect(async() => {
-        setImageURL(await ProductService.getFileURL(props.product.vendor_name, props.product.product_id))
+
+    const [fetchImage, imageIsLoading, imageError] = useFetching(async() => {
+        const response = await ProductService.getFileURL(props.product.vendor_name, props.product.product_id)
+        setImageURL(response)
+    })
+    useEffect(() => {
+        fetchImage()
     }, [])
 
     const addToBasket = () => {

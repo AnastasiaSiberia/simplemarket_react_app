@@ -13,13 +13,13 @@ const ProductList = ({products, title, remove}) => {
     return (
         <div>
             <h1 style={{textAlign:"center"}}>{title}</h1>
-            <TransitionGroup>
+            //<TransitionGroup>
                 {products.map((product, index) =>
-                    <CSSTransition key={product.product_id} timeout={500} classNames='post'>
+                    //<CSSTransition key={product.product_id} timeout={500} classNames='post'>
                         <ProductItem remove={remove} number={index + 1} product={product} />
-                    </CSSTransition>
+                    //</CSSTransition>
                 )}
-            </TransitionGroup>
+            //</TransitionGroup>
         </div>
     );
 };
