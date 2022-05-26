@@ -8,7 +8,7 @@ const ProductItem = (props) => {
     const router = useHistory()
     const [imageURL, setImageURL] = useState({})
     useEffect(async() => {
-        //setImageURL(await ProductService.getFileURL(props.product.vendor_name, props.product.product_id))
+        setImageURL(await ProductService.getFileURL(props.product.vendor_name, props.product.product_id))
     }, [])
 
     const addToBasket = () => {
