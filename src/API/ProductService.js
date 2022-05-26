@@ -52,12 +52,30 @@ export default class ProductService {
     static async addProduct(product) {
         const JWTToken = localStorage.getItem('JWTToken');
         try{
-            await axios.post('http://localhost:8080/add_product', {
+            return await axios.post('http://localhost:8080/add_product', {
                     product_name: product.productName,
                     product_description: product.productDescription
                 },
                 {
                     headers: {
+                        'Authorization': 'Bearer ' + JWTToken
+                    },
+                    withCredentials: true
+                }
+            )
+        } catch (ex) {
+            return false;
+        }
+    }
+
+    static async loadFile(productId, formData) {
+        const JWTToken = localStorage.getItem('JWTToken');
+        try{
+            return await axios.post('http://localhost:8080/product_image/upload/' + productId,
+                formData,
+                {
+                    headers: {
+                        "Content-type": "multipart/form-data",
                         'Authorization': 'Bearer ' + JWTToken
                     },
                     withCredentials: true
@@ -69,24 +87,23 @@ export default class ProductService {
         }
     }
 
-    static async onlyVendor(param) {
+    static async getFileURL(vendorName, filename) {
+        if(vendorName === undefined) return false
         const JWTToken = localStorage.getItem('JWTToken');
         try{
-            return await axios.post('http://localhost:8080/only_vendor',
-                {
-                    product_name: 'skirt',
-                    product_description: 'some text'
-                },
-                {
-                    headers: {
-                        'Authorization': 'Bearer ' + JWTToken,
-                    },
-                    withCredentials: true
+            const response = await axios({
+                url: 'http://localhost:8080/product_image/' + vendorName + '/' + filename,
+                method: 'GET',
+                responseType: 'blob',
+                headers: {
+                    'Authorization': 'Bearer ' + JWTToken
                 }
-            )
-            return true;
+            })
+            let binaryData = [];
+            binaryData.push(response.data);
+            return URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
         } catch (ex) {
-            return false;
+            return false
         }
     }
 }

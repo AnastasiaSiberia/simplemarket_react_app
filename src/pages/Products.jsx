@@ -12,17 +12,20 @@ import {getPageCount, getPagesArray} from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import {useObserver} from "../hooks/useObserver";
 import {AuthContext} from "../context/context";
+import jpeg from "../tmp/file"
+import classes from "../styles/img.module.css";
 
 function Products() {
     const {role, setRole} = useContext(AuthContext)
+    const [fff, setFFF] = useState(false)
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
     const [totalPages, setTotalPages] = useState(0)
-    const [limit, setLimit] = useState(25)
+    const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const sortedAndSearchedProducts = useProducts(products, filter.sort, filter.query)
-    const lastElement = useRef()
+    let filePicture = jpeg
 
     const [fetchProducts, isProductLoading, productError] = useFetching(async() => {
         const response = await ProductService.getAllProductInfo()
@@ -34,14 +37,10 @@ function Products() {
         fetchProducts(limit, page)
     }, [page, limit])
 
-    useObserver(lastElement, page < totalPages, isProductLoading, () => {
-        setPage(page + 1)
-    })
-
-    const addProduct = async (newProduct) => {
-        await ProductService.addProduct(newProduct)
-        //const response = await ProductService.onlyVendor('out');
-        //console.log(response.data)
+    const addProduct = async (newProduct, formData) => {
+        const response = await ProductService.addProduct(newProduct)
+        const productId = response.data
+        await ProductService.loadFile(productId, formData)
         setModal(false)
     }
 
@@ -53,14 +52,16 @@ function Products() {
         setPage(page)
         fetchProducts(limit, page)
     }
+
     return (
         <div className="App">
-            {role === 'VENDOR' && <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
-                Add product
-            </MyButton>
+            {role === 'VENDOR' &&
+                <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
+                    Add product
+                </MyButton>
             }
             <MyModal visible={modal} setVisible={setModal}>
-                <ProductForm create={addProduct}/>
+                <ProductForm create={addProduct} />
             </MyModal>
 
             <div>
@@ -74,13 +75,6 @@ function Products() {
                 <h1>Error! ${productError}</h1>
             }
             <ProductList remove={removePost} products={sortedAndSearchedProducts} title='Catalogue'/>
-            <div ref={lastElement} style={{height:20, background:'red'}}/>
-            {
-                isProductLoading &&
-                <div style={{display:'flex', justifyContent:'center', marginTop:50}}>
-                        <Loader/>
-                </div>
-            }
             <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
         </div>
     );

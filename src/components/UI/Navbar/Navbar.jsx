@@ -25,6 +25,7 @@ const Navbar = () => {
             <div className="navbar__link">
                 <Link to="/products">Products</Link>
                 {isAuth && <Link to="/profile">Profile</Link>}
+                {isAuth && <Link to="/basket">Basket</Link>}
             </div>
         </div>
     );
