@@ -18,7 +18,11 @@ const ProductItem = (props) => {
     }, [])
 
     const addToBasket = () => {
-        const id = props.product.product_id //??
+        const id = props.product.product_id
+        const basketId = parseInt(localStorage.getItem('basketSize'))
+        localStorage.setItem('basketProductId' + basketId, id)
+        localStorage.setItem('basketOrderSize' + basketId, '1')
+        localStorage.setItem('basketSize', String(basketId + 1))
     }
 
     return (
@@ -29,7 +33,7 @@ const ProductItem = (props) => {
                 <div>
                     <div>{props.product.vendor_name}</div>
                     <div>{props.product.product_nviews} views        {props.product.product_rating} rating</div>
-                    <MyButton onClick={addToBasket()}>Добавить в корзину</MyButton>
+                    <MyButton onClick={() => addToBasket()}>Добавить в корзину</MyButton>
                 </div>
             </div>
         </div>

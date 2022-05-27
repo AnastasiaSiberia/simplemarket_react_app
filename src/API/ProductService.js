@@ -106,4 +106,24 @@ export default class ProductService {
             return false
         }
     }
+
+    static async pay(basketList) {
+        const JWTToken = localStorage.getItem('JWTToken');
+        console.log(basketList)
+        try{
+            return await axios.post('http://localhost:8080/buy',
+            basketList,
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Authorization': 'Bearer ' + JWTToken
+                    },
+                    withCredentials: true
+                }
+            )
+            return true;
+        } catch (ex) {
+            return false
+        }
+    }
 }

@@ -10,6 +10,9 @@ function App() {
     const [role, setRole] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
+        if(localStorage.getItem('basketSize') == null) {
+            localStorage.setItem('basketSize', '0')
+        }
         if(localStorage.getItem('auth') === 'true') {
             setIsAuth(true)
         }

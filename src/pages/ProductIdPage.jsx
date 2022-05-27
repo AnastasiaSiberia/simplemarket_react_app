@@ -13,7 +13,6 @@ const ProductIdPage = () => {
 
     const [fetchProductById, isLoading, error] = useFetching(async(id) => {
         const response = await ProductService.getById(id)
-        console.log(response)
         setProduct(response.data)
     })
     const [fetchComments, isCommentLoading, commentError] = useFetching(async(id) => {
@@ -25,10 +24,9 @@ const ProductIdPage = () => {
     //     response !== false && setImage(response)
     // })
 
-    useEffect(async () => {
-        //fetchProductById(params.id)
+    useEffect(() => {
+        fetchProductById(params.id)
         //fetchComments(params.id)
-        setProduct(await ProductService.getById(params.id))
     }, [])
 
     // useEffect(() => {
