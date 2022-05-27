@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
-import ProductService from "../API/ProductService";
-import classes from "../styles/img.module.css"
-import MyButton from "./UI/button/MyButton";
-import {useFetching} from "../hooks/useFetching";
+import ProductService from "../../../API/ProductService";
+import classes from "../../../styles/img.module.css"
+import MyButton from "../../UI/button/MyButton";
+import {useFetching} from "../../../hooks/useFetching";
 
 const ProductItem = (props) => {
     const router = useHistory()

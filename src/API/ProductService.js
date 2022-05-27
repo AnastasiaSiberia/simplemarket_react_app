@@ -103,13 +103,12 @@ export default class ProductService {
             binaryData.push(response.data);
             return URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
         } catch (ex) {
-            return false
+            return {}
         }
     }
 
     static async pay(basketList) {
         const JWTToken = localStorage.getItem('JWTToken');
-        console.log(basketList)
         try{
             return await axios.post('http://localhost:8080/buy',
             basketList,
@@ -121,9 +120,24 @@ export default class ProductService {
                     withCredentials: true
                 }
             )
-            return true;
         } catch (ex) {
             return false
+        }
+    }
+
+    static async getOrders() {
+        const JWTToken = localStorage.getItem('JWTToken');
+        try{
+            return await axios.get('http://localhost:8080/orders',
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + JWTToken
+                    },
+                    withCredentials: true
+                }
+            )
+        } catch (ex) {
+            return []
         }
     }
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import ProductList from "../components/ProductList";
+import ProductList from "../components/lists/ProductList";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
 import {getPageCount} from "../utils/pages";
@@ -10,7 +10,7 @@ function Basket() {
     const [productList, setProductList] = useState([])
     const [basketList, setBasketList] = useState([])
 
-    const removePost = (product) => {
+    const removeProduct = (product) => {
         setProductList(product.filter(p => p.id !== product.product_id))
     }
 
@@ -47,7 +47,7 @@ function Basket() {
 
     return (
         <div>
-            <ProductList remove={removePost} products={productList} title='Корзина'/>
+            <ProductList remove={removeProduct} products={productList} title='Корзина'/>
             <MyButton onClick={() => pay()}>Перейти к оплате</MyButton>
         </div>
     );

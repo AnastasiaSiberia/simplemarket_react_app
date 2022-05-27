@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import ProductList from "../components/ProductList";
+import ProductList from "../components/lists/ProductList";
 import ProductForm from "../components/ProductForm";
 import PostFilter from "../components/PostFilter";
 import MyModal from "../components/UI/modal/MyModal";
@@ -44,7 +44,7 @@ function Products() {
         setModal(false)
     }
 
-    const removePost = (product) => {
+    const removeProduct = (product) => {
         setProducts(product.filter(p => p.id !== product.product_id))
     }
 
@@ -74,7 +74,7 @@ function Products() {
             { productError &&
                 <h1>Error! ${productError}</h1>
             }
-            <ProductList remove={removePost} products={sortedAndSearchedProducts} title='Catalogue'/>
+            <ProductList remove={removeProduct} products={sortedAndSearchedProducts} title='Catalogue'/>
             <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductItem from "./ProductItem";
+import ProductItem from "./listItems/ProductItem";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 const ProductList = ({products, title, remove}) => {

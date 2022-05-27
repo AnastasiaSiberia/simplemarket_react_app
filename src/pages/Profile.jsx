@@ -27,7 +27,7 @@ const ProductIdPage = () => {
                 (role === 'USER' || role === 'VENDOR')
                 && <div>
                     <MyButton onClick = {() => router.push(`/basket`)}>Корзина</MyButton>
-                    <MyButton>История покупок</MyButton>
+                    <MyButton onClick = {() => router.push('/order_history')}>История покупок</MyButton>
                 </div>
             }
         </div>
