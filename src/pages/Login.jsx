@@ -3,9 +3,11 @@ import MyInput from "../components/UI/input/MyInput";
 import MyButton from "../components/UI/button/MyButton";
 import {AuthContext} from "../context/context";
 import ProductService from "../API/ProductService";
+import {useHistory} from "react-router-dom";
 
 const Login = () => {
     const {isAuth, setIsAuth, role, setRole} = useContext(AuthContext)
+    const router = useHistory()
     //const {role, setRole} = useContext(AuthContext)
     const [authInfo, setAuthInfo] = useState({username:'', password:'', csrf:''});
     const [error, setError] = useState('')
@@ -43,6 +45,7 @@ const Login = () => {
                          onChange={event => setAuthInfo({...authInfo, password: event.target.value})}
                 />
                 <MyButton onClick={login}>sign-in</MyButton>
+                <MyButton onClick={() => router.push('/registration')}>sign-up</MyButton>
             </form>
         </div>
     );

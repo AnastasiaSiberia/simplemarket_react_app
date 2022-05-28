@@ -1,24 +1,40 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import MyInput from "../components/UI/input/MyInput";
 import MyButton from "../components/UI/button/MyButton";
 import {AuthContext} from "../context/context";
+import ProductService from "../API/ProductService";
 
 const Registration = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
-    const register= (e) => {
+    const [authInfo, setAuthInfo] = useState({});
+    const [error, setError] = useState('')
+
+    const register= async (e) => {
         e.preventDefault()
-        setIsAuth(true)
-        localStorage.setItem('auth', 'true')
+        if(authInfo.password.length === 0) {
+            setError('Введите пароль')
+            return;
+        }
+        if(authInfo.password === authInfo.repeatedPassword) {
+            await ProductService.addUser(authInfo)
+        }
+        else {
+            setError('Пароли не совпадают')
+        }
     }
     return (
         <div>
             <h1>The registration</h1>
             <form onSubmit={register}>
-                <MyInput type="text" placeholder="Input your email"/>
-                <MyInput type="text" placeholder="Input your nickname"/>
-                <MyInput type="password" placeholder="Input the password"/>
-                <MyInput type="password" placeholder="Repeat the password"/>
-                <MyButton>Enter</MyButton>
+                <MyInput type="text" placeholder="Input your email" value={authInfo.email}
+                         onChange={event => setAuthInfo({...authInfo, email: event.target.value})}/>
+                <MyInput type="text" placeholder="Input your nickname" value={authInfo.username}
+                         onChange={event => setAuthInfo({...authInfo, username: event.target.value})}/>
+                <MyInput type="password" placeholder="Input the password" value={authInfo.password}
+                         onChange={event => setAuthInfo({...authInfo, password: event.target.value})}/>
+                <MyInput type="password" placeholder="Repeat the password" value={authInfo.repeatedPassword}
+                         onChange={event => setAuthInfo({...authInfo, repeatedPassword: event.target.value})}/>
+                <MyButton onClick={(event) => register(event)}>Enter</MyButton>
             </form>
         </div>
     );

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import ProductList from "../components/lists/ProductList";
 import ProductForm from "../components/ProductForm";
 import PostFilter from "../components/PostFilter";
@@ -6,14 +6,11 @@ import MyModal from "../components/UI/modal/MyModal";
 import MyButton from "../components/UI/button/MyButton";
 import {useProducts} from "../hooks/usePosts";
 import ProductService from "../API/ProductService";
-import Loader from "../components/UI/Loader/Loader";
 import {useFetching} from "../hooks/useFetching";
-import {getPageCount, getPagesArray} from "../utils/pages";
+import {getPageCount} from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
-import {useObserver} from "../hooks/useObserver";
 import {AuthContext} from "../context/context";
 import jpeg from "../tmp/file"
-import classes from "../styles/img.module.css";
 
 function Products() {
     const {role, setRole} = useContext(AuthContext)

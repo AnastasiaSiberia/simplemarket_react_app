@@ -140,4 +140,44 @@ export default class ProductService {
             return []
         }
     }
+
+    static async addUser(authInfo) {
+        return await axios.post('http://localhost:8080/api/v1/auth/registration',
+            {
+                'email': authInfo.email,
+                'username': authInfo.username,
+                'password': authInfo.password
+            },
+            {
+                withCredentials: true
+            }
+        )
+    }
+
+    static async getAllUsers() {
+        return await axios.get('http://localhost:8080/admin/users',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('JWTToken')
+                },
+                withCredentials: true
+            }
+        )
+    }
+
+    static async changeRole(userId, newRole) {
+        return await axios.post('http://localhost:8080/admin/change_role/',
+            {
+                userId: userId,
+                role: newRole
+            },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('JWTToken')
+                },
+                withCredentials: true
+            }
+        )
+    }
 }

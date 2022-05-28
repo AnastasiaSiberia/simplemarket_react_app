@@ -5,8 +5,10 @@ import {AuthContext} from "../../../context/context";
 
 const Navbar = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
+    const {role, setRole} = useContext(AuthContext)
     const logout = () => {
         setIsAuth(false)
+        setRole('')
         localStorage.removeItem('auth')
         localStorage.removeItem('JWTToken')
         localStorage.removeItem('role')
@@ -26,6 +28,7 @@ const Navbar = () => {
                 <Link to="/products">Products</Link>
                 {isAuth && <Link to="/profile">Profile</Link>}
                 {isAuth && <Link to="/basket">Basket</Link>}
+                {localStorage.getItem('role') === 'ADMIN' && <Link to="/users">Users</Link>}
             </div>
         </div>
     );
