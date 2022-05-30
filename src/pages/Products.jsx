@@ -27,7 +27,16 @@ function Products() {
         const response = await ProductService.getAllProductInfo()
         setTotalPages(getPageCount(response.data.length, limit))
         setAllProducts(response.data)
+        updatePageContent(response.data)
     })
+
+    const updatePageContent = (allProducts) => {
+        let newProductList = []
+        for(let i = limit * (page - 1); i < limit * page && i < allProducts.length; i++) {
+            newProductList = [...newProductList, allProducts[i]]
+        }
+        setProducts(newProductList)
+    }
 
     useEffect(() => {
         fetchAllProducts()
@@ -42,11 +51,7 @@ function Products() {
 
     const changePage = (page) => {
         setPage(page)
-        let newProductList = []
-        for(let i = limit * (page - 1); i < limit * page && i < allProducts.length; i++) {
-            newProductList = [...newProductList, allProducts[i]]
-        }
-        setProducts(newProductList)
+        updatePageContent(allProducts)
     }
 
     return (
