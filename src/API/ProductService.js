@@ -18,7 +18,6 @@ export default class ProductService {
 
     static async getCurUserInfo() {
         const JWTToken = localStorage.getItem('JWTToken');
-        console.log('"Bearer ' + JWTToken + '"')
         return await axios.get('http://localhost:8080/api/v1/auth/userinfo',
             {
                 headers: {

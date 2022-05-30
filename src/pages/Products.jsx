@@ -42,6 +42,11 @@ function Products() {
         fetchAllProducts()
     }, [])
 
+    const changePage = (page) => {
+        setPage(page)
+        updatePageContent(allProducts)
+    }
+
     const addProduct = async (newProduct, formData) => {
         const response = await ProductService.addProduct(newProduct)
         const productId = response.data
@@ -49,10 +54,6 @@ function Products() {
         setModal(false)
     }
 
-    const changePage = (page) => {
-        setPage(page)
-        updatePageContent(allProducts)
-    }
 
     return (
         <div className="App">
