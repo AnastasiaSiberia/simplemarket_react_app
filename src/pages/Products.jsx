@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import ProductList from "../components/lists/ProductList";
-import ProductForm from "../components/ProductForm";
+import ProductForm from "../components/forms/ProductForm";
 import PostFilter from "../components/PostFilter";
 import MyModal from "../components/UI/modal/MyModal";
 import MyButton from "../components/UI/button/MyButton";

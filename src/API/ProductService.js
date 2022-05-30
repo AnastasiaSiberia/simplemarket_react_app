@@ -12,10 +12,6 @@ export default class ProductService {
     static async getById(id) {
         return await axios.get(`http://localhost:8080/products/${id}`, id)
     }
-    static async getCommentByPostId(id) {
-        return await axios.get(`http://localhost:8080/products/${id}/reviews`, id)
-    }
-
     static async getAllProductInfo() {
         return await axios.get('http://localhost:8080/product_info');
     }
@@ -180,4 +176,39 @@ export default class ProductService {
             }
         )
     }
+
+    static async addViews(views) {
+        return await axios.post('http://localhost:8080/products/add_views',
+            views,
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('JWTToken')
+                },
+                withCredentials: true
+            }
+        )
+    }
+
+
+    static async addReview(productId, reviewValue, reviewText) {
+        return await axios.post('http://localhost:8080/products/' + productId + '/review',
+            {
+                review_value: reviewValue,
+                review_text: reviewText
+            },
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('JWTToken')
+                },
+                withCredentials: true
+            }
+        )
+    }
+
+    static async getReviewsByProductId(id) {
+        return await axios.get('http://localhost:8080/products/' + id + '/reviews')
+    }
+
 }

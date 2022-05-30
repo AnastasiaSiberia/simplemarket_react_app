@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import ProductService from "../../../API/ProductService";
 import MySelect from "../../UI/select/MySelect";
 import MyModal from "../../UI/modal/MyModal";
-import ConfirmForm from "../../UI/ConfirmForm";
+import ConfirmForm from "../../forms/ConfirmForm";
 
 const UserItem = (props) => {
     const [modal, setModal] = useState(false)

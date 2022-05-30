@@ -25,14 +25,26 @@ const ProductItem = (props) => {
         localStorage.setItem('basketSize', String(basketId + 1))
     }
 
+    const transit = async () => {
+        await ProductService.addViews([{productId: props.product.product_id, size: 1}])
+        router.push(`/products/${props.product.product_id}`
+            //, {product: props.product}
+        )
+    }
+
+    const computeRating = () => {
+        if(props.product.product_nreviews === 0) return 0
+        return props.product.product_rating/props.product.product_nreviews
+    }
+
     return (
-        <div className="post" onClick={() => router.push(`/products/${props.product.product_id}`)} >
+        <div className="post" onClick={() => transit()} >
             <div className="post__content" style={{cursor:"pointer"}}>
                 <img className={classes.imgM} src={imageURL} alt={""}/>
                 <strong>{props.product.product_name}</strong>
                 <div>
                     <div>{props.product.vendor_name}</div>
-                    <div>{props.product.product_nviews} views        {props.product.product_rating} rating</div>
+                    <div>{props.product.product_nviews} views        {computeRating()} rating</div>
                     <MyButton onClick={() => addToBasket()}>Добавить в корзину</MyButton>
                 </div>
             </div>

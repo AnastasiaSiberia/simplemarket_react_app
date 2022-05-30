@@ -1,5 +1,5 @@
 import React from 'react';
-import MyButton from "./button/MyButton";
+import MyButton from "../UI/button/MyButton";
 
 const ConfirmForm = ({foo, message}) => {
     return (
