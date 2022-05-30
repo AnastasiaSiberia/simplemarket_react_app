@@ -22,8 +22,12 @@ export const useSortedProducts = (products, sort) => {
 
 export const useProducts = (products, sort, query) => {
     const sortedProducts = useSortedProducts(products, sort)
+    const lowerQuery = query.toLowerCase()
     return useMemo(() => {
-            return sortedProducts.filter((product) => product.product_name.toLowerCase().includes(query))
+            return sortedProducts.filter((product) => product.product_name.toLowerCase().includes(lowerQuery)
+                || product.product_description.toLowerCase().includes(lowerQuery)
+                || product.vendor_name.toLowerCase().includes(lowerQuery)
+            )
         },
         [sort, query, products]
     )
