@@ -14,6 +14,7 @@ import jpeg from "../tmp/file"
 
 function Products() {
     const {role, setRole} = useContext(AuthContext)
+    const [allProducts, setAllProducts] = useState([]);
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
@@ -22,16 +23,15 @@ function Products() {
     const [page, setPage] = useState(1)
     const sortedAndSearchedProducts = useProducts(products, filter.sort, filter.query)
 
-    const [fetchProducts, isProductLoading, productError] = useFetching(async() => {
+    const [fetchAllProducts, isProductLoading, productError] = useFetching(async() => {
         const response = await ProductService.getAllProductInfo()
-        console.log(response)
         setTotalPages(getPageCount(response.data.length, limit))
-        setProducts([...products, ...response.data])
+        setAllProducts(response.data)
     })
 
     useEffect(() => {
-        fetchProducts(limit, page)
-    }, [page, limit])
+        fetchAllProducts()
+    }, [])
 
     const addProduct = async (newProduct, formData) => {
         const response = await ProductService.addProduct(newProduct)
@@ -42,7 +42,11 @@ function Products() {
 
     const changePage = (page) => {
         setPage(page)
-        fetchProducts(limit, page)
+        let newProductList = []
+        for(let i = limit * (page - 1); i < limit * page && i < allProducts.length; i++) {
+            newProductList = [...newProductList, allProducts[i]]
+        }
+        setProducts(newProductList)
     }
 
     return (
