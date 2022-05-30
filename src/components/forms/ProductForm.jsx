@@ -3,13 +3,13 @@ import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 
 const ProductForm = ({create}) => {
-    const [product, setProduct] = useState({productName:'', productDescription:''});
+    const [product, setProduct] = useState({productName:'', productDescription:'', productPrice: '', productQuantity: ''});
     let formData
 
     const addNewProduct = (e) => {
         e.preventDefault()
         create(product, formData)
-        setProduct({productName: '', productDescription: ''})
+        setProduct({productName: '', productDescription: '', productPrice: '', productQuantity: ''})
 
     }
 
@@ -30,6 +30,14 @@ const ProductForm = ({create}) => {
             <MyInput type="text" placeholder={"productDescription"}
                      value={product.productDescription}
                      onChange={event => setProduct({...product, productDescription: event.target.value})}
+            />
+            <MyInput type="text" placeholder={"productPrice"}
+                     value={product.productPrice}
+                     onChange={event => setProduct({...product, productPrice: event.target.value})}
+            />
+            <MyInput type="text" placeholder={"productQuantity"}
+                     value={product.productQuantity}
+                     onChange={event => setProduct({...product, productQuantity: event.target.value})}
             />
             <MyInput
                 type="file"

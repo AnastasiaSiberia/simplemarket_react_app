@@ -43,8 +43,9 @@ const ProductItem = (props) => {
                 <img className={classes.imgM} src={imageURL} alt={""}/>
                 <strong>{props.product.product_name}</strong>
                 <div>
-                    <div>{props.product.vendor_name}</div>
-                    <div>{props.product.product_nviews} views        {computeRating()} rating</div>
+                    <div>{'Продавец: ' + props.product.vendor_name}</div>
+                    <div>{'Цена: ' + props.product.product_price}</div>
+                    <div>{'Просмотров: ' + props.product.product_nviews} views        {'Рейтинг: ' + computeRating()} rating</div>
                     <MyButton onClick={() => addToBasket()}>Добавить в корзину</MyButton>
                 </div>
             </div>

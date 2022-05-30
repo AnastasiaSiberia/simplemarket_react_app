@@ -4,7 +4,7 @@ import ProductForm from "../components/forms/ProductForm";
 import PostFilter from "../components/PostFilter";
 import MyModal from "../components/UI/modal/MyModal";
 import MyButton from "../components/UI/button/MyButton";
-import {useProducts} from "../hooks/usePosts";
+import {useProducts} from "../hooks/useProducts";
 import ProductService from "../API/ProductService";
 import {useFetching} from "../hooks/useFetching";
 import {getPageCount} from "../utils/pages";
@@ -14,7 +14,6 @@ import jpeg from "../tmp/file"
 
 function Products() {
     const {role, setRole} = useContext(AuthContext)
-    const [fff, setFFF] = useState(false)
     const [products, setProducts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
@@ -22,10 +21,10 @@ function Products() {
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const sortedAndSearchedProducts = useProducts(products, filter.sort, filter.query)
-    let filePicture = jpeg
 
     const [fetchProducts, isProductLoading, productError] = useFetching(async() => {
         const response = await ProductService.getAllProductInfo()
+        console.log(response)
         setTotalPages(getPageCount(response.data.length, limit))
         setProducts([...products, ...response.data])
     })
@@ -39,10 +38,6 @@ function Products() {
         const productId = response.data
         await ProductService.loadFile(productId, formData)
         setModal(false)
-    }
-
-    const removeProduct = (product) => {
-        setProducts(product.filter(p => p.id !== product.product_id))
     }
 
     const changePage = (page) => {
@@ -71,7 +66,7 @@ function Products() {
             { productError &&
                 <h1>Error! ${productError}</h1>
             }
-            <ProductList remove={removeProduct} products={sortedAndSearchedProducts} title='Catalogue'/>
+            <ProductList products={sortedAndSearchedProducts} title='Catalogue'/>
             <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
         </div>
     );

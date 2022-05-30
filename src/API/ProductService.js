@@ -50,7 +50,9 @@ export default class ProductService {
         try{
             return await axios.post('http://localhost:8080/add_product', {
                     product_name: product.productName,
-                    product_description: product.productDescription
+                    product_description: product.productDescription,
+                    product_price: product.productPrice,
+                    product_quantity: product.productQuantity
                 },
                 {
                     headers: {
