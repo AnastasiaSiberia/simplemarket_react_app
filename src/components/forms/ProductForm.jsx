@@ -43,7 +43,7 @@ const ProductForm = ({create}) => {
                 type="file"
                 onChange={UploadContent}
             />
-            <MyButton onClick={addNewProduct}>add</MyButton>
+            <MyButton onClick={addNewProduct}>Добавить продукт</MyButton>
         </form>
     );
 };

@@ -26,13 +26,13 @@ const Registration = () => {
         <div>
             <h1>The registration</h1>
             <form onSubmit={register}>
-                <MyInput type="text" placeholder="Input your email" value={authInfo.email}
+                <MyInput type="text" placeholder="Введите вашу почту" value={authInfo.email}
                          onChange={event => setAuthInfo({...authInfo, email: event.target.value})}/>
-                <MyInput type="text" placeholder="Input your nickname" value={authInfo.username}
+                <MyInput type="text" placeholder="Введите ваш никнейм" value={authInfo.username}
                          onChange={event => setAuthInfo({...authInfo, username: event.target.value})}/>
-                <MyInput type="password" placeholder="Input the password" value={authInfo.password}
+                <MyInput type="password" placeholder="Введите ваш пароль" value={authInfo.password}
                          onChange={event => setAuthInfo({...authInfo, password: event.target.value})}/>
-                <MyInput type="password" placeholder="Repeat the password" value={authInfo.repeatedPassword}
+                <MyInput type="password" placeholder="Повторите ваш пароль" value={authInfo.repeatedPassword}
                          onChange={event => setAuthInfo({...authInfo, repeatedPassword: event.target.value})}/>
                 <MyButton onClick={(event) => register(event)}>Enter</MyButton>
             </form>

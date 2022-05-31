@@ -13,7 +13,7 @@ const Users = () => {
     const [allUsers, setAllUsers] = useState([])
     const [users, setUsers] = useState([])
     const [totalPages, setTotalPages] = useState(0)
-    const [limit, setLimit] = useState(2)
+    const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const [query, setQuery] = useState('')
     const searchedUsers = useUsers(allUsers, query)

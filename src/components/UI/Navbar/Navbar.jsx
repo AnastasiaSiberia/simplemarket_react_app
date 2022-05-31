@@ -1,35 +1,33 @@
 import React, {useContext} from 'react';
-import {Link} from "react-router-dom";
-import MyButton from "../button/MyButton";
+import {Link, useHistory} from "react-router-dom";
 import {AuthContext} from "../../../context/context";
+import ProfileIcon from "../../../icons/profileIcon2.png"
+import BusketIcon from "../../../icons/busket.png"
+import SearchIcon from "../../../icons/searching.png"
+import UsersIcon from "../../../icons/usersIcon.png"
+import classes from "./icon.module.css"
 
 const Navbar = () => {
+    const router = useHistory()
     const {isAuth, setIsAuth} = useContext(AuthContext)
-    const {role, setRole} = useContext(AuthContext)
-    const logout = () => {
-        setIsAuth(false)
-        setRole('')
-        localStorage.removeItem('auth')
-        localStorage.removeItem('JWTToken')
-        localStorage.removeItem('role')
+
+    const LoginOrProfile = () => {
+        if(isAuth) {
+            router.push('/profile')
+        }
+        else {
+            router.push('/login')
+        }
     }
 
-    const login = () => {
-        //window.location.assign('http://localhost:8080/login');
-        window.location.assign('http://localhost:3000/login');
-    }
     return (
         <div className='navbar'>
-            {isAuth
-                ? <MyButton onClick={logout}>Exit</MyButton>
-                : <MyButton onClick={login}>Login</MyButton>
+            <img className={classes.iconButton} src={ProfileIcon} alt="" title="Профиль" onClick={LoginOrProfile}/>
+            <img className={classes.iconButton} src={SearchIcon} alt="" title="Товары" onClick={() => router.push('/products')}/>
+            <img className={classes.iconButton} src={BusketIcon} alt="" title="Корзина" onClick={() => router.push('/basket')}/>
+            {localStorage.getItem('role') === 'ADMIN' &&
+                <img className={classes.iconButton} src={UsersIcon} alt="" title="Пользователи" onClick={() => router.push('/users')}/>
             }
-            <div className="navbar__link">
-                <Link to="/products">Products</Link>
-                {isAuth && <Link to="/profile">Profile</Link>}
-                {isAuth && <Link to="/basket">Basket</Link>}
-                {localStorage.getItem('role') === 'ADMIN' && <Link to="/users">Users</Link>}
-            </div>
         </div>
     );
 };

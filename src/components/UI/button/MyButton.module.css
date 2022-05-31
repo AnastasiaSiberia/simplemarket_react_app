@@ -4,5 +4,17 @@
     font-size: 14px;
     background: coral;
     border: 2px solid red;
+    border-radius: 5px;
     cursor: pointer;
+}
+
+.profileButton {
+    padding: 5px 15px;
+    color: white;
+    font-size: 14px;
+    background: coral;
+    border: 2px solid red;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 300px;
 }

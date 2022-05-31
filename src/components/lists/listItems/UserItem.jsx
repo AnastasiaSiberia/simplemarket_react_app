@@ -22,22 +22,25 @@ const UserItem = (props) => {
     return (
         <div className="post">
             <div className="post__content">
-                <h3>{props.user.username}</h3>
-                <h4>{props.user.user_email}</h4>
+                <h3>{'Ник: ' + props.user.username}</h3>
+                <h4>{'Почта: ' + props.user.user_email}</h4>
                 <div>
                     <MyModal visible={modal} setVisible={setModal}>
                         <ConfirmForm message={confirmMessage}  foo={changeRole} />
                     </MyModal>
-                    <MySelect
-                        defaultValue={props.user.user_role}
-                        value={props.user.user_role}
-                        onChange={selected => callConfirmForm(selected)}
-                        options={[
-                            {value: 'USER', name: 'USER'},
-                            {value: 'ADMIN', name: 'ADMIN'},
-                            {value: 'VENDOR', name: 'VENDOR'}
-                        ]}
-                    />
+                    <h4>{"Роль: "}
+                        <MySelect
+                            defaultValue={props.user.user_role}
+                            value={props.user.user_role}
+                            onChange={selected => callConfirmForm(selected)}
+                            options={[
+                                {value: 'USER', name: 'USER'},
+                                {value: 'ADMIN', name: 'ADMIN'},
+                                {value: 'VENDOR', name: 'VENDOR'}
+                            ]}
+                        />
+                    </h4>
+
                 </div>
             </div>
         </div>

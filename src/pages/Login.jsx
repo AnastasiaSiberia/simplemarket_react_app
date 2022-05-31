@@ -20,7 +20,6 @@ const Login = () => {
             localStorage.setItem('auth', 'true')
             localStorage.setItem('JWTToken', response.data.token)
             const userInfo = await ProductService.getCurUserInfo()
-            console.log(userInfo.data.roles[0].roleCode)
             localStorage.setItem('role', userInfo.data.roles[0].roleCode)
             setRole(userInfo.data.roles[0].roleCode)
         }
@@ -36,11 +35,11 @@ const Login = () => {
                 <h3>{error}</h3>
             }
             <form>
-                <MyInput type="text" placeholder={"username"}
+                <MyInput type="text" placeholder={"Никнейм"}
                          value={authInfo.username}
                          onChange={event => setAuthInfo({...authInfo, username: event.target.value})}
                 />
-                <MyInput type="password" placeholder={"password"}
+                <MyInput type="password" placeholder={"Пароль"}
                          value={authInfo.password}
                          onChange={event => setAuthInfo({...authInfo, password: event.target.value})}
                 />

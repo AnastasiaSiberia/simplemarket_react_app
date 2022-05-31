@@ -51,7 +51,7 @@ const ProductIdPage = () => {
                 ? <Loader/>
                 : (
                     <div>
-                        <img className={classes.imgL} src={image} alt={""}/>
+                        <img className={classes.imgL} src={image} alt=""/>
                     </div>
                 )
             }

@@ -19,7 +19,7 @@ function Products() {
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
     const [totalPages, setTotalPages] = useState(0)
-    const [limit, setLimit] = useState(2)
+    const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
     const sortedAndSearchedProducts = useProducts(allProducts, filter.sort, filter.query)
 
@@ -62,7 +62,7 @@ function Products() {
         <div className="App">
             {role === 'VENDOR' &&
                 <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
-                    Add product
+                    Добавить продукт
                 </MyButton>
             }
             <MyModal visible={modal} setVisible={setModal}>
@@ -70,16 +70,15 @@ function Products() {
             </MyModal>
 
             <div>
-                <hr style={{margin: '15px 0'}}/>
                 <ProductFilter
                     filter={filter}
                     setFilter={setFilter}
                 />
             </div>
             { productError &&
-                <h1>Error! ${productError}</h1>
+                <h1>Произошла ошибка: ${productError}</h1>
             }
-            <ProductList products={products} title='Catalogue'/>
+            <ProductList products={products} title='Каталог'/>
             <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
         </div>
     );

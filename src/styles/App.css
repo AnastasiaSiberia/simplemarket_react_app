@@ -17,6 +17,7 @@
     display: flex;
     padding: 15px;
     border: 2px solid red;
+    border-radius: 15px;
     margin-top: 15px;
     justify-content: space-between;
     align-items: center;
@@ -43,26 +44,34 @@
 .page__wrapper {
     margin-top: 30px;
     display: flex;
+    padding: 15px;
 }
 
 .page {
     padding: 10px 10px;
     border: 1px solid red;
+    font-weight: bold;
     cursor: pointer;
+    border-radius: 5px;
+    margin-left: 5px;
 }
 
 .page__current {
-    border: 2px solid orange;
+    border: 2px solid indianred;
+    color: white;
     font-weight: bold;
+    background-color: coral;
+    border-radius: 5px;
+    margin-left: 5px;
 }
 
 .navbar {
     height: 50px;
     width: 100vw;
     display: flex;
-    align-items: center;
+    align-content: center;
     padding: 10px 15px;
-    background: lightgray;
+    background: rgba(255, 127, 80, 0.66);
 }
 
 .navbar__links {

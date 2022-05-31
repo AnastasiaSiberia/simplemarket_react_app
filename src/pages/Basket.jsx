@@ -48,7 +48,10 @@ function Basket() {
     return (
         <div>
             <ProductList remove={removeProduct} products={productList} title='Корзина'/>
-            <MyButton onClick={() => pay()}>Перейти к оплате</MyButton>
+            {
+                productList.length > 0 && 
+                <MyButton onClick={() => pay()}>Перейти к оплате</MyButton>
+            }
         </div>
     );
 }
