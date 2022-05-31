@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {useFetching} from "../hooks/useFetching";
+import {computeRating} from "../utils/utils.js";
 import ProductService from "../API/ProductService";
 import Loader from "../components/UI/Loader/Loader";
 import classes from "../styles/img.module.css"
 import MyButton from "../components/UI/button/MyButton";
-import ProductForm from "../components/forms/ProductForm";
 import MyModal from "../components/UI/modal/MyModal";
 import ReviewForm from "../components/forms/ReviewForm";
+import rating0 from "../icons/rating0.png"
+import rating1 from "../icons/rating1.png"
+import rating2 from "../icons/rating2.png"
+import rating3 from "../icons/rating3.png"
+import rating4 from "../icons/rating4.png"
+import rating5 from "../icons/rating5.png"
 
 const ProductIdPage = () => {
     const params = useParams()
@@ -15,6 +21,7 @@ const ProductIdPage = () => {
     const [reviews, setReviews] = useState([])
     const [image, setImage] = useState({})
     const [modal, setModal] = useState(false)
+    const ratingIconList = [rating0, rating1, rating2, rating3, rating4, rating5]
 
     const addReview = async (reviewValue, reviewText) => {
         await ProductService.addReview(product.product_id, reviewValue, reviewText)
@@ -46,29 +53,30 @@ const ProductIdPage = () => {
     }, [product])
 
     return (
-        <div>
+        <div className={"App"}>
             {imgLoading
                 ? <Loader/>
                 : (
-                    <div>
+                    <div style={{marginTop: '30px', marginBottom: '15px', display: 'flex'}}>
                         <img className={classes.imgL} src={image} alt=""/>
+                        {isLoading
+                            ? <Loader/>
+                            : (
+                                <div style={{marginLeft: '30px', marginTop: '15px'}}>
+                                    <div><strong>{product.product_name}</strong>
+                                        <img className={classes.ratingImage} src={ratingIconList[computeRating(product)]} alt="" title={computeRating(product)}/>
+                                    </div>
+                                    <div>{'Продавец: ' + product.vendor_name}</div>
+                                    <div>{'Описание: ' + product.product_description}</div>
+                                </div>
+                            )
+                        }
                     </div>
+
                 )
             }
-            {isLoading
-                ? <Loader/>
-                : (
-                    <div>
-                        <h1>{'Название: ' + product.product_name}</h1>
-                        <h2>{'Продавец: ' + product.vendor_name}</h2>
-                        <h2>{'Описание: ' + product.product_description}</h2>
-                    </div>
-                )
-            }
-            <MyButton onClick={() => setModal(true)}>Оценить продукт</MyButton>
-            <h4>
-                Reviews
-            </h4>
+
+            <MyButton style={{marginTop: '50px', marginBottom: '20px', width: '100%'}} onClick={() => setModal(true)}>Оценить продукт</MyButton>
             <MyModal visible={modal} setVisible={setModal}>
                 <ReviewForm addReview={addReview} />
             </MyModal>
@@ -77,10 +85,11 @@ const ProductIdPage = () => {
                 : <div>
                     {
                         reviews.map(review =>
-                            <div style={{marginTop: 15}}>
-                                <h5>{'Отзыв написал ' + review.username}</h5>
-                                <div>{review.review_text}</div>
-                                <h5>{'Оценка ' + review.review_value}</h5>
+                            <div style={{marginTop: 15, border: '2px solid red', borderRadius: '10px', alignContent: 'center'}}>
+                                <div style={{marginLeft: '20px'}}><strong>{'Отзыв написал ' + review.username}</strong>
+                                    <img className={classes.ratingImage} src={ratingIconList[review.review_value]} alt="" title={review.review_value}/>
+                                </div>
+                                <div style={{marginLeft: '20px'}}>{review.review_text}</div>
                             </div>
                         )
                     }

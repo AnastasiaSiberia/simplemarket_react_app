@@ -9,3 +9,8 @@ export const getPagesArray = (totalPages) => {
     }
     return result
 }
+
+export const computeRating = (product) => {
+    if(product.product_nreviews === 0) return 0
+    return product.product_rating/product.product_nreviews
+}

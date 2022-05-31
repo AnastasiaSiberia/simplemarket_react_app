@@ -7,7 +7,7 @@ import MyButton from "../components/UI/button/MyButton";
 import {useProducts} from "../hooks/useProducts";
 import ProductService from "../API/ProductService";
 import {useFetching} from "../hooks/useFetching";
-import {getPageCount} from "../utils/pages";
+import {getPageCount} from "../utils/utils";
 import Pagination from "../components/UI/pagination/Pagination";
 import {AuthContext} from "../context/context";
 

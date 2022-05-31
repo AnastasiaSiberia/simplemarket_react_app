@@ -3,7 +3,7 @@ import UserList from "../components/lists/UserList";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
 import Pagination from "../components/UI/pagination/Pagination";
-import {getPageCount} from "../utils/pages";
+import {getPageCount} from "../utils/utils";
 import MyInput from "../components/UI/input/MyInput";
 import {useUsers} from "../hooks/useUsers";
 import ProductFilter from "../components/filters/ProductFilter";

@@ -4,12 +4,12 @@ import ProductList from "../components/lists/ProductList";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
 import Pagination from "../components/UI/pagination/Pagination";
-import {getPageCount} from "../utils/pages";
+import {getPageCount} from "../utils/utils";
 const OrderHistory = () => {
     const [allOrders, setAllOrders] = useState([])
     const [orders, setOrders] = useState([])
     const [totalPages, setTotalPages] = useState(0)
-    const [limit, setLimit] = useState(2)
+    const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
 
     const [fetchAllOrders, isLoading, error] = useFetching(async() => {

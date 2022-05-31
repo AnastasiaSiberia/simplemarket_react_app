@@ -4,6 +4,7 @@ import ProductService from "../../../API/ProductService";
 import classes from "../../../styles/img.module.css"
 import MyButton from "../../UI/button/MyButton";
 import {useFetching} from "../../../hooks/useFetching";
+import {computeRating} from "../../../utils/utils";
 import rating0 from "../../../icons/rating0.png"
 import rating1 from "../../../icons/rating1.png"
 import rating2 from "../../../icons/rating2.png"
@@ -37,11 +38,6 @@ const ProductItem = (props) => {
         router.push(`/products/${props.product.product_id}`)
     }
 
-    const computeRating = () => {
-        if(props.product.product_nreviews === 0) return 0
-        return props.product.product_rating/props.product.product_nreviews
-    }
-
     return (
         <div className="post">
             <div style={{cursor:"pointer"}} onClick={() => transit()} >
@@ -49,7 +45,7 @@ const ProductItem = (props) => {
             </div>
             <div>
                 <strong>{props.product.product_name} </strong>
-                <img className={classes.ratingImage} src={ratingIconList[computeRating()]} alt="" title={computeRating}/>
+                <img className={classes.ratingImage} src={ratingIconList[computeRating(props.product)]} alt=""/>
                 <div>{'Продавец: ' + props.product.vendor_name}</div>
                 <div>{props.product.product_nviews} просмотров</div>
             </div>

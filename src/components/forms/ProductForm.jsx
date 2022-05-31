@@ -23,19 +23,19 @@ const ProductForm = ({create}) => {
 
     return (
         <form>
-            <MyInput type="text" placeholder={"productName"}
+            <MyInput type="text" placeholder={"Введите имя продукта"}
                      value={product.productName}
                      onChange={event => setProduct({...product, productName: event.target.value})}
             />
-            <MyInput type="text" placeholder={"productDescription"}
+            <MyInput type="text" placeholder={"Введите описание продукта"}
                      value={product.productDescription}
                      onChange={event => setProduct({...product, productDescription: event.target.value})}
             />
-            <MyInput type="text" placeholder={"productPrice"}
+            <MyInput type="text" placeholder={"Введите цену  продукта"}
                      value={product.productPrice}
                      onChange={event => setProduct({...product, productPrice: event.target.value})}
             />
-            <MyInput type="text" placeholder={"productQuantity"}
+            <MyInput type="text" placeholder={"Введите количество продукта"}
                      value={product.productQuantity}
                      onChange={event => setProduct({...product, productQuantity: event.target.value})}
             />

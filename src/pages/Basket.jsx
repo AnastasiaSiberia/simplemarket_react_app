@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import ProductList from "../components/lists/ProductList";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
-import {getPageCount} from "../utils/pages";
+import {getPageCount} from "../utils/utils";
 import MyButton from "../components/UI/button/MyButton";
 import {useHistory} from "react-router-dom";
 

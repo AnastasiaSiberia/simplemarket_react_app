@@ -9,6 +9,12 @@ const ProductFilter = ({filter, setFilter}) => {
                 value={filter.query}
                 onChange={e => setFilter({...filter, query: e.target.value})}
                 placeholder="Поиск..."
+                style = {
+                    {
+                        marginTop: '15px',
+                        marginBottom: '15px'
+                    }
+                }
             />
             <MySelect
                 defaultValue="Отсортировать по"

@@ -35,16 +35,20 @@ const Login = () => {
                 <h3>{error}</h3>
             }
             <form>
-                <MyInput type="text" placeholder={"Никнейм"}
-                         value={authInfo.username}
-                         onChange={event => setAuthInfo({...authInfo, username: event.target.value})}
-                />
-                <MyInput type="password" placeholder={"Пароль"}
-                         value={authInfo.password}
-                         onChange={event => setAuthInfo({...authInfo, password: event.target.value})}
-                />
-                <MyButton onClick={login}>sign-in</MyButton>
-                <MyButton onClick={() => router.push('/registration')}>sign-up</MyButton>
+                <div style={{marginTop: '30px', marginBottom: '30px'}}>
+                    <MyInput type="text" placeholder={"Никнейм"}
+                             value={authInfo.username}
+                             onChange={event => setAuthInfo({...authInfo, username: event.target.value})}
+                    />
+                    <MyInput type="password" placeholder={"Пароль"}
+                             value={authInfo.password}
+                             onChange={event => setAuthInfo({...authInfo, password: event.target.value})}
+                    />
+                </div>
+                <MyButton onClick={login} style={{width:'100%'}}>Войти</MyButton>
+                <div style={{marginTop: '15px'}}>
+                    <MyButton style={{width:'100%'}} onClick={() => router.push('/registration')}>Зарегистрироваться</MyButton>
+                </div>
             </form>
         </div>
     );
