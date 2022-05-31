@@ -8,10 +8,6 @@ import {useFetching} from "../../../hooks/useFetching";
 const OrderItem = (props) => {
     const [imageURL, setImageURL] = useState({})
     const [fetchImage, isImageLoading, imageError] = useFetching(async () => {
-        // console.log('props.order')
-        // console.log(props.order)
-        // console.log(props.order.product_id)
-        // console.log(props.order.product_name)
         const vendorName = props.order.vendor_name
         console.log(props.order)
          setImageURL(await ProductService.getFileURL(vendorName,
@@ -23,16 +19,14 @@ const OrderItem = (props) => {
     return (
         <div>
             <div className="post">
-                <div className="post__content">
-                    {<img className={classes.imgS} src={imageURL} alt={""}/>}
-                    <strong>{'Номер заказа: ' + props.order.order_id}</strong>
-                    <div>
-                        <div>{'Имя товара: ' + props.order.product_name}</div>
-                        <div>{'Бренд: ' + props.order.vendor_name}</div>
-                        <div>{'Цена: ' + props.order.order_price}</div>
-                        <div>{'Количество: ' + props.order.order_size}</div>
-                        <div>{'Время заказа: ' + props.order.order_time}</div>
-                    </div>
+                {<img className={classes.imgS} src={imageURL} alt={""}/>}
+                <div style={{marginLeft: '10px'}}>
+                    <div>{'Номер заказа: ' + props.order.order_id}</div>
+                    <div>{'Имя товара: ' + props.order.product_name}</div>
+                    <div>{'Бренд: ' + props.order.vendor_name}</div>
+                    <div>{'Цена: ' + props.order.order_price}</div>
+                    <div>{'Количество: ' + props.order.order_size}</div>
+                    <div>{'Время заказа: ' + props.order.order_time}</div>
                 </div>
             </div>
         </div>

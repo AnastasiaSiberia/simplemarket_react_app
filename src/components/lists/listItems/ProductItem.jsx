@@ -34,9 +34,7 @@ const ProductItem = (props) => {
 
     const transit = async () => {
         await ProductService.addViews([{productId: props.product.product_id, size: 1}])
-        router.push(`/products/${props.product.product_id}`
-            //, {product: props.product}
-        )
+        router.push(`/products/${props.product.product_id}`)
     }
 
     const computeRating = () => {
@@ -57,7 +55,7 @@ const ProductItem = (props) => {
             </div>
             <div>{'Цена: ' + props.product.product_price} рублей</div>
             {
-                localStorage.getItem('role') !== 'ADMIN' &&
+                props.canAdd === true &&
                 <MyButton onClick={() => addToBasket()}>Добавить в корзину</MyButton>
             }
         </div>

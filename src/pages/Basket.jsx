@@ -46,11 +46,11 @@ function Basket() {
     }
 
     return (
-        <div>
-            <ProductList remove={removeProduct} products={productList} title='Корзина'/>
+        <div className='App'>
+            <ProductList remove={removeProduct} products={productList} title='Корзина' canAdd={false}/>
             {
                 productList.length > 0 && 
-                <MyButton onClick={() => pay()}>Перейти к оплате</MyButton>
+                <MyButton onClick={() => pay()} style={{marginTop: '20px', width: '100%'}}>Перейти к оплате</MyButton>
             }
         </div>
     );

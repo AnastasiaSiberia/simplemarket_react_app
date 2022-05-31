@@ -10,7 +10,6 @@ import {useFetching} from "../hooks/useFetching";
 import {getPageCount} from "../utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import {AuthContext} from "../context/context";
-import jpeg from "../tmp/file"
 
 function Products() {
     const {role, setRole} = useContext(AuthContext)
@@ -57,6 +56,9 @@ function Products() {
         setModal(false)
     }
 
+    const checkCanAdd = () => {
+        return localStorage.getItem('role') === 'VENDOR' || localStorage.getItem('role') === 'USER'
+    }
 
     return (
         <div className="App">
@@ -78,7 +80,7 @@ function Products() {
             { productError &&
                 <h1>Произошла ошибка: ${productError}</h1>
             }
-            <ProductList products={products} title='Каталог'/>
+            <ProductList products={products} title='Каталог' canAdd={checkCanAdd()}/>
             <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
         </div>
     );
