@@ -19,6 +19,7 @@ const Login = () => {
             setIsAuth(true);
             localStorage.setItem('auth', 'true')
             localStorage.setItem('JWTToken', response.data.token)
+            localStorage.setItem('myname', authInfo.username)
             const userInfo = await ProductService.getCurUserInfo()
             localStorage.setItem('role', userInfo.data.roles[0].roleCode)
             setRole(userInfo.data.roles[0].roleCode)

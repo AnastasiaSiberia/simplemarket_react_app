@@ -212,4 +212,14 @@ export default class ProductService {
         return await axios.get('http://localhost:8080/products/' + id + '/reviews')
     }
 
+    static async disableProduct(productId) {
+        return await axios.get('http://localhost:8080/products/' + productId + '/disable',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('JWTToken')
+                },
+                withCredentials: true
+            }
+        )
+    }
 }

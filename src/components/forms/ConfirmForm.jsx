@@ -5,8 +5,10 @@ const ConfirmForm = ({foo, message}) => {
     return (
         <form>
             <strong>{message}</strong>
-            <MyButton onClick={foo}>Да</MyButton>
-            <MyButton>Нет</MyButton>
+            <div>
+                <MyButton onClick={foo}>Да</MyButton>
+                <MyButton>Нет</MyButton>
+            </div>
         </form>
     );
 };

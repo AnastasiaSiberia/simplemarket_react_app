@@ -29,6 +29,7 @@ const ProductIdPage = () => {
         localStorage.removeItem('auth')
         localStorage.removeItem('JWTToken')
         localStorage.removeItem('role')
+        localStorage.removeItem('myname')
         router.push('/login')
     }
 

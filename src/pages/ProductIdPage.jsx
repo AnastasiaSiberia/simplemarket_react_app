@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {useFetching} from "../hooks/useFetching";
 import {computeRating} from "../utils/utils.js";
 import ProductService from "../API/ProductService";
@@ -14,6 +14,7 @@ import rating2 from "../icons/rating2.png"
 import rating3 from "../icons/rating3.png"
 import rating4 from "../icons/rating4.png"
 import rating5 from "../icons/rating5.png"
+import ConfirmForm from "../components/forms/ConfirmForm";
 
 const ProductIdPage = () => {
     const params = useParams()
@@ -21,6 +22,8 @@ const ProductIdPage = () => {
     const [reviews, setReviews] = useState([])
     const [image, setImage] = useState({})
     const [modal, setModal] = useState(false)
+    const [modalDisable, setModalDisable] = useState(false)
+    const router = useHistory()
     const ratingIconList = [rating0, rating1, rating2, rating3, rating4, rating5]
 
     const addReview = async (reviewValue, reviewText) => {
@@ -52,6 +55,12 @@ const ProductIdPage = () => {
         }
     }, [product])
 
+    const disableProduct = async(e) => {
+        e.preventDefault()
+        await ProductService.disableProduct(product.product_id)
+        router.push("/products")
+    }
+
     return (
         <div className={"App"}>
             {imgLoading
@@ -65,6 +74,16 @@ const ProductIdPage = () => {
                                 <div style={{marginLeft: '30px', marginTop: '15px'}}>
                                     <div><strong>{product.product_name}</strong>
                                         <img className={classes.ratingImage} src={ratingIconList[computeRating(product)]} alt="" title={computeRating(product)}/>
+                                        {
+                                            (
+                                                localStorage.getItem("myname") === product.vendor_name
+                                                || localStorage.getItem("role") === 'ADMIN'
+                                            ) &&
+                                            <MyButton onClick={() => setModalDisable(true)}>Удалить</MyButton>
+                                        }
+                                        <MyModal visible={modalDisable} setVisible={setModalDisable}>
+                                            <ConfirmForm foo={disableProduct} message="Вы действительно хотите удалить данный товар?"/>
+                                        </MyModal>
                                     </div>
                                     <div>{'Продавец: ' + product.vendor_name}</div>
                                     <div>{'Описание: ' + product.product_description}</div>
