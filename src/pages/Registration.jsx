@@ -49,6 +49,7 @@ const Registration = () => {
                 <MyInput type="password" placeholder="Повторите ваш пароль" value={authInfo.repeatedPassword}
                          onChange={event => setAuthInfo({...authInfo, repeatedPassword: event.target.value})}/>
                 <MyButton onClick={(event) => register(event)}>Зарегистрироваться</MyButton>
+                <MyButton onClick={() => router.push("/login")}>У меня уже есть аккаунт</MyButton>
             </form>
         </div>
     );

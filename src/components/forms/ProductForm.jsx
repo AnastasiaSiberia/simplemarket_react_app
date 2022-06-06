@@ -4,7 +4,7 @@ import MyButton from "../UI/button/MyButton";
 import {useFetching} from "../../hooks/useFetching";
 import ProductService from "../../API/ProductService";
 
-const ProductForm = ({setModal}) => {
+const ProductForm = ({setModal, updateProducts}) => {
     const [newProductId, setNewProductId] = useState(-1)
     const [formData, setFormData] = useState({})
     const [product, setProduct] = useState({productName:'', productDescription:'', productPrice: '', productQuantity: ''});
@@ -24,6 +24,7 @@ const ProductForm = ({setModal}) => {
         if(newProductId !== -1) {
             uploadFile()
             setModal(false)
+            updateProducts()
         }
     }, [newProductId])
 

@@ -62,7 +62,7 @@ function Products() {
                 </MyButton>
             }
             <MyModal visible={modal} setVisible={setModal}>
-                <ProductForm setModal={setModal}/>
+                <ProductForm setModal={setModal} updateProducts={fetchAllProducts}/>
             </MyModal>
 
             <div>
