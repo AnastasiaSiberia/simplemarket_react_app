@@ -49,12 +49,6 @@ function Products() {
         updatePageContent(page)
     }
 
-    const addProduct = async (newProduct, formData) => {
-        const response = await ProductService.addProduct(newProduct)
-        const productId = response.data
-        await ProductService.loadFile(productId, formData)
-        setModal(false)
-    }
 
     const checkCanAdd = () => {
         return localStorage.getItem('role') === 'VENDOR' || localStorage.getItem('role') === 'USER'
@@ -68,7 +62,7 @@ function Products() {
                 </MyButton>
             }
             <MyModal visible={modal} setVisible={setModal}>
-                <ProductForm create={addProduct} />
+                <ProductForm setModal={setModal}/>
             </MyModal>
 
             <div>

@@ -1,23 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
+import {useFetching} from "../../hooks/useFetching";
+import ProductService from "../../API/ProductService";
 
-const ProductForm = ({create}) => {
+const ProductForm = ({setModal}) => {
+    const [newProductId, setNewProductId] = useState(-1)
+    const [formData, setFormData] = useState({})
     const [product, setProduct] = useState({productName:'', productDescription:'', productPrice: '', productQuantity: ''});
-    let formData
 
-    const addNewProduct = (e) => {
+    const [uploadFile, isFileLoading, fileLoadError] = useFetching(async() => {
+        await ProductService.loadFile(newProductId, formData)
+    })
+
+    const addNewProduct = async (e) => {
         e.preventDefault()
-        create(product, formData)
+        const response = await ProductService.addProduct(product)
+        setNewProductId(response.data)
         setProduct({productName: '', productDescription: '', productPrice: '', productQuantity: ''})
-
     }
 
+    useEffect(() => {
+        if(newProductId !== -1) {
+            uploadFile()
+            setModal(false)
+        }
+    }, [newProductId])
+
     const UploadContent = (event) => {
-        event.preventDefault();
         if (event.target.files) {
-            formData = new FormData();
-            formData.append('file', event.target.files[0]);
+            const tempFormData = new FormData();
+            tempFormData.append('file', event.target.files[0]);
+            setFormData(tempFormData)
         }
     };
 
