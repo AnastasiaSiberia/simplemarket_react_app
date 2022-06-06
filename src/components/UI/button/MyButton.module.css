@@ -18,3 +18,8 @@
     cursor: pointer;
     width: 300px;
 }
+
+.transparentButton {
+    background: transparent;
+    border-color: transparent;
+}

@@ -26,11 +26,6 @@ const ProductIdPage = () => {
     const router = useHistory()
     const ratingIconList = [rating0, rating1, rating2, rating3, rating4, rating5]
 
-    const addReview = async (reviewValue, reviewText) => {
-        await ProductService.addReview(product.product_id, reviewValue, reviewText)
-        setModal(false)
-    }
-
     const [fetchReviews, isReviewsLoading, reviewError] = useFetching(async(id) => {
         const response = await ProductService.getReviewsByProductId(id)
         setReviews(response.data)
@@ -97,14 +92,15 @@ const ProductIdPage = () => {
 
             <MyButton style={{marginTop: '50px', marginBottom: '20px', width: '100%'}} onClick={() => setModal(true)}>Оценить продукт</MyButton>
             <MyModal visible={modal} setVisible={setModal}>
-                <ReviewForm addReview={addReview} />
+                <ReviewForm productId={product.product_id} setModal={setModal}/>
             </MyModal>
             { isReviewsLoading
                 ? <Loader/>
                 : <div>
                     {
                         reviews.map(review =>
-                            <div style={{marginTop: 15, border: '2px solid red', borderRadius: '10px', alignContent: 'center'}}>
+                            <div key={review.product_review_id}
+                                 style={{marginTop: 15, border: '2px solid red', borderRadius: '10px', alignContent: 'center'}}>
                                 <div style={{marginLeft: '20px'}}><strong>{'Отзыв написал ' + review.username}</strong>
                                     <img className={classes.ratingImage} src={ratingIconList[review.review_value]} alt="" title={review.review_value}/>
                                 </div>
