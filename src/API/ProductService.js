@@ -69,7 +69,8 @@ export default class ProductService {
                 'password': authInfo.password
             },
             this.getConfig()
-        )
+        ).then(() => true)
+            .catch(error => error.response.data)
     }
 
     static async getAllUsers() {

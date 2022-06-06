@@ -3,9 +3,11 @@ import MyInput from "../components/UI/input/MyInput";
 import MyButton from "../components/UI/button/MyButton";
 import {AuthContext} from "../context/context";
 import ProductService from "../API/ProductService";
+import {useHistory} from "react-router-dom";
 
 const Registration = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
+    const router = useHistory()
     const [authInfo, setAuthInfo] = useState({});
     const [error, setError] = useState('')
 
@@ -16,15 +18,27 @@ const Registration = () => {
             return;
         }
         if(authInfo.password === authInfo.repeatedPassword) {
-            await ProductService.addUser(authInfo)
+            const response = await ProductService.addUser(authInfo)
+            if(response === true) {
+                console.log(response)
+            }
+            else {
+                setError(response)
+            }
+            //router.push("/products")
         }
         else {
             setError('Пароли не совпадают')
         }
     }
+
     return (
         <div>
-            <h1>The registration</h1>
+            <h1>Регистрация</h1>
+            {
+                error !== '' &&
+                <div className="errorPrompt">{error}</div>
+            }
             <form onSubmit={register}>
                 <MyInput type="text" placeholder="Введите вашу почту" value={authInfo.email}
                          onChange={event => setAuthInfo({...authInfo, email: event.target.value})}/>
@@ -34,7 +48,7 @@ const Registration = () => {
                          onChange={event => setAuthInfo({...authInfo, password: event.target.value})}/>
                 <MyInput type="password" placeholder="Повторите ваш пароль" value={authInfo.repeatedPassword}
                          onChange={event => setAuthInfo({...authInfo, repeatedPassword: event.target.value})}/>
-                <MyButton onClick={(event) => register(event)}>Enter</MyButton>
+                <MyButton onClick={(event) => register(event)}>Зарегистрироваться</MyButton>
             </form>
         </div>
     );

@@ -77,3 +77,11 @@
 .navbar__links {
     margin-left: auto;
 }
+
+.errorPrompt {
+    padding: 10px;
+    height: 50px;
+    background: darksalmon;
+    align-content: center;
+    align-items: center;
+}
