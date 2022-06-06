@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import OrderList from "../components/lists/OrderList";
-import ProductList from "../components/lists/ProductList";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
 import Pagination from "../components/UI/pagination/Pagination";
 import {getPageCount} from "../utils/utils";
+
 const OrderHistory = () => {
     const [allOrders, setAllOrders] = useState([])
     const [orders, setOrders] = useState([])
@@ -16,7 +16,6 @@ const OrderHistory = () => {
         let response = await ProductService.getOrders()
         const promises = response.data.map(async(order) => {
             const res = await ProductService.getById(order.product_id)
-            const product = res.data
             order = {...order, product_name: res.data.product_name, vendor_name: res.data.vendor_name}
             return order
         })

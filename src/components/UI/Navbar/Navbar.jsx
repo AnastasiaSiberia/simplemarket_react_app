@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {AuthContext} from "../../../context/context";
 import ProfileIcon from "../../../icons/profileIcon2.png"
 import BusketIcon from "../../../icons/busket.png"

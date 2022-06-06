@@ -2,9 +2,7 @@ import React, {useEffect, useState} from "react";
 import ProductList from "../components/lists/ProductList";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
-import {getPageCount} from "../utils/utils";
 import MyButton from "../components/UI/button/MyButton";
-import {useHistory} from "react-router-dom";
 
 function Basket() {
     const [productList, setProductList] = useState([])
@@ -21,7 +19,6 @@ function Basket() {
 
     const [fetchProducts, isProductLoading, productError] = useFetching(async(list) => {
         list.map(async(orderInfo) => fetchProductById(orderInfo.product_id))
-        console.log(productList)
     })
 
     useEffect(() => {

@@ -8,7 +8,6 @@ import {useHistory} from "react-router-dom";
 const Login = () => {
     const {isAuth, setIsAuth, role, setRole} = useContext(AuthContext)
     const router = useHistory()
-    //const {role, setRole} = useContext(AuthContext)
     const [authInfo, setAuthInfo] = useState({username:'', password:'', csrf:''});
     const [error, setError] = useState('')
     const login = async(e) => {

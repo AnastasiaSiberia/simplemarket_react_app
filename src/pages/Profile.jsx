@@ -2,11 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import {useFetching} from "../hooks/useFetching";
 import ProductService from "../API/ProductService";
-import Loader from "../components/UI/Loader/Loader";
 import {AuthContext} from "../context/context";
-import MyButton from "../components/UI/button/MyButton";
 import classes from "../components/UI/button/MyButton.module.css"
-import route from "react-router-dom/es/Route";
+
 const ProductIdPage = () => {
     const router = useHistory()
     const params = useParams()

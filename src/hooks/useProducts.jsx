@@ -2,7 +2,6 @@ import {useMemo} from "react";
 
 export const useSortedProducts = (products, sort) => {
     return useMemo(() => {
-        console.log(products)
             if (sort === 'популярность') {
                 return [...products].sort((a, b) => a['product_rating'] < b['product_rating'] ? 1 : -1);
             } else if (sort === 'рейтинг') {

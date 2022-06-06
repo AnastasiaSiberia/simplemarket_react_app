@@ -16,7 +16,7 @@ const UserItem = (props) => {
     }
 
     const changeRole = async() => {
-        const response = await ProductService.changeRole(props.user.user_id, role)
+        await ProductService.changeRole(props.user.user_id, role)
     }
 
     return (
