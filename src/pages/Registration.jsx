@@ -6,7 +6,6 @@ import ProductService from "../API/ProductService";
 import {useHistory} from "react-router-dom";
 
 const Registration = () => {
-    const {isAuth, setIsAuth} = useContext(AuthContext)
     const router = useHistory()
     const [authInfo, setAuthInfo] = useState({});
     const [error, setError] = useState('')
@@ -20,12 +19,12 @@ const Registration = () => {
         if(authInfo.password === authInfo.repeatedPassword) {
             const response = await ProductService.addUser(authInfo)
             if(response === true) {
-                console.log(response)
+
             }
             else {
                 setError(response)
             }
-            //router.push("/products")
+            router.push("/products")
         }
         else {
             setError('Пароли не совпадают')

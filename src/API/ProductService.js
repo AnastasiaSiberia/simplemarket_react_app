@@ -1,4 +1,5 @@
 import axios from "axios";
+import {encode as base64_encode} from 'base-64';
 
 export default class ProductService {
     static async getById(id) {
@@ -15,7 +16,7 @@ export default class ProductService {
     static async authorize(p) {
         return await axios.post('http://localhost:8080/api/v1/auth/login', {
                 username: p.username,
-                password: p.password
+                password: base64_encode(p.password)
             },
             this.getConfig()
         )
@@ -66,7 +67,7 @@ export default class ProductService {
             {
                 'email': authInfo.email,
                 'username': authInfo.username,
-                'password': authInfo.password
+                'password': base64_encode(authInfo.password)
             },
             this.getConfig()
         ).then(() => true)
