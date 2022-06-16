@@ -15,7 +15,7 @@ function Products() {
     const {role, setRole} = useContext(AuthContext)
     const [allProducts, setAllProducts] = useState([]);
     const [products, setProducts] = useState([]);
-    const [filter, setFilter] = useState({sort: '', query: ''})
+    const [filter, setFilter] = useState({sort: 'популярность', query: ''})
     const [modal, setModal] = useState(false)
     const [totalPages, setTotalPages] = useState(0)
     const [limit, setLimit] = useState(10)
@@ -42,6 +42,7 @@ function Products() {
 
     useEffect(() => {
         updatePageContent(page)
+        setTotalPages(getPageCount(sortedAndSearchedProducts.length, limit))
     }, [sortedAndSearchedProducts])
 
     const changePage = (page) => {

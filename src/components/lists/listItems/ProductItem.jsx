@@ -23,7 +23,7 @@ const ProductItem = (props) => {
     })
     useEffect(() => {
         fetchImage()
-    }, [])
+    }, [props.product])
 
     const addToBasket = () => {
         const id = props.product.product_id
@@ -45,7 +45,7 @@ const ProductItem = (props) => {
             </div>
             <div>
                 <strong>{props.product.product_name} </strong>
-                <img className={classes.ratingImage} src={ratingIconList[computeRating(props.product)]} alt=""/>
+                <img className={classes.ratingImage} src={ratingIconList[Math.round(computeRating(props.product))]} alt=""/>
                 <div>{'Продавец: ' + props.product.vendor_name}</div>
                 <div>{props.product.product_nviews} просмотров</div>
             </div>

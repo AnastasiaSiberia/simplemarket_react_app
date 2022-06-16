@@ -11,18 +11,16 @@ function Basket() {
     const removeProduct = (product) => {
         setProductList(product.filter(p => p.id !== product.product_id))
     }
-
-    const [fetchProductById, isLoading, error] = useFetching(async(id) => {
-        const response = await ProductService.getById(id)
-        setProductList([...productList, response.data])
-    })
-
     const [fetchProducts, isProductLoading, productError] = useFetching(async(list) => {
-        list.map(async(orderInfo) => fetchProductById(orderInfo.product_id))
+        let newList = []
+        for (const orderInfo of list) {
+                const response = await ProductService.getById(orderInfo.product_id)
+                newList = [...newList, response.data]
+        }
+        setProductList(newList)
     })
 
     useEffect(() => {
-        localStorage.setItem('backetSize', 0)
         const basketSize = localStorage.getItem('basketSize')
         let list = []
         for(let i = 0; i < basketSize; i++) {

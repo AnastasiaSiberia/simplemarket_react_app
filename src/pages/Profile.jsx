@@ -28,6 +28,7 @@ const ProductIdPage = () => {
         localStorage.removeItem('JWTToken')
         localStorage.removeItem('role')
         localStorage.removeItem('myname')
+        localStorage.setItem('basketSize', '0')
         router.push('/login')
     }
 

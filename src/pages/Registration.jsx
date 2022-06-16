@@ -24,7 +24,7 @@ const Registration = () => {
             else {
                 setError(response)
             }
-            router.push("/products")
+            router.push("/login")
         }
         else {
             setError('Пароли не совпадают')

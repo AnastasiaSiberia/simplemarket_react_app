@@ -12,6 +12,11 @@ const Login = () => {
     const [error, setError] = useState('')
     const login = async(e) => {
         e.preventDefault()
+        const regexp = /[а-яё]/i;
+        if(regexp.test(authInfo.password)) {
+            setError('В пароле не должны находится русские символы')
+            return;
+        }
         const response = await ProductService.authorize(authInfo)
         if(!response.hasOwnProperty('authError')) {
             setError('')
